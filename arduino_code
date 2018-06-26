@@ -1,0 +1,32 @@
+const int leftDoorPin = 6;
+const int rightDoorPin = 7;
+const int lightSensorPin = A0;
+
+int leftDoorState;
+int rightDoorState;
+int lightSensorState;
+
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(leftDoorPin, INPUT);
+  pinMode(rightDoorPin, INPUT);
+  pinMode(lightSensorPin, INPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  leftDoorState = digitalRead(leftDoorPin);
+  Serial.print("Left door is: ");
+  Serial.println(leftDoorState);
+
+  rightDoorState = digitalRead(rightDoorPin);
+  Serial.print("Right door is: ");
+  Serial.println(rightDoorState);
+
+  lightSensorState = analogRead(lightSensorPin);
+  Serial.print("Light level is: ");
+  Serial.println(lightSensorState);
+
+  Serial.println("");
+}
