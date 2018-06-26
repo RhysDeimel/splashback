@@ -6,7 +6,7 @@ MAX_BYTES = 655355
 
 def server(port):
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    sock.bind(('0.0.0.0', port))
+    sock.bind(('', port))
     print('Listening at {}'.format(sock.getsockname()))
     while True:
         data, address = sock.recvfrom(MAX_BYTES)
