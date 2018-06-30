@@ -22,11 +22,11 @@ String LDR_type = "|g";
 
 String new_line = "\n";
 
-char ssid[] = "some_ssid";
-char password[] = "some_pass";
+char ssid[] = "somessid";
+char password[] = "somepass";
 int radio_status = WL_IDLE_STATUS;
 unsigned int listen_port = 10002;  // might not need this
-char stats_server_ip[] = "192.168.1.100";
+char stats_server_ip[] = "192.168.1.150";
 int stats_server_port = 1060;
 
 
