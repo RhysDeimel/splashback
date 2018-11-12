@@ -18,8 +18,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='Send and receive UDP locally'
     )
-    parser.add_argument('-p', metavar='PORT', type=int, default=1060,
-                        help='UDP port (default 1060)')
+    parser.add_argument('-p', metavar='PORT', type=int, default=8125,
+                        help='UDP port (default 8125)')
     args = parser.parse_args()
 
     server(args.p)
