@@ -23,3 +23,6 @@ sudo sudo systemctl start telegraf
 ```
 
 then edit telegraf.conf so it listens on 0.0.0.0:8125
+
+Install plugin to do math on single stat panel (for lights off)
+`grafana-cli plugins install blackmirror1-singlestat-math-panel`

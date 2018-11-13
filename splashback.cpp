@@ -11,16 +11,19 @@ const int right_door_pin = 2;
 const int LDR_pin = A0;
 
 String stats_message;
-char stat_packet[28];
+char stat_packet[51];
 
-String left_door_name = "ldoor:";
-String right_door_name = "rdoor:";
-String door_type = "|g";
+String left_door_name = "occupancy.left,ldr=";
+String right_door_name = "occupancy.right,ldr=";
+String termination = "|g\n";
 
-String LDR_name = "ldr:";  // Light Dependent Resistor
-String LDR_type = "|g";
+// String LDR_name = "ldr:";  // Light Dependent Resistor
+// String LDR_type = "|g";
+String left_door_value = "";
+String right_door_value = "";
+String LDR_value = "";
 
-String new_line = "\n";
+// String new_line = "\n";
 
 char ssid[] = "somessid";
 char password[] = "somepass";
@@ -61,28 +64,54 @@ void setup() {
 
 void loop() {
 
-    Serial.print("Left door is: ");
-    Serial.println(digitalRead(left_door_pin));
-
-    Serial.print("Right door is: ");
-    Serial.println(digitalRead(right_door_pin));
-
-    stats_message = left_door_name + digitalRead(left_door_pin);
-    stats_message += door_type + new_line;
-    stats_message += right_door_name + digitalRead(right_door_pin);
-    stats_message += door_type + new_line;
-    stats_message += LDR_name;
-
     if (analogRead(LDR_pin) > 500) {
-        stats_message += 1;
+        LDR_value = "1";
     } else {
-        stats_message += 0;
+        LDR_value = "0";
     }
 
-    stats_message += LDR_type;
+    left_door_value = String(digitalRead(left_door_pin));
+    right_door_value = String(digitalRead(right_door_pin));
+
+
+    Serial.print("Left door is: ");
+    Serial.println(left_door_value);
+
+    Serial.print("Right door is: ");
+    Serial.println(right_door_value);
+
+
+
+    stats_message = left_door_name;
+    stats_message += LDR_value;
+    stats_message += ":";
+    stats_message += left_door_value;
+    stats_message += termination;
+
+    stats_message += right_door_name;
+    stats_message += LDR_value;
+    stats_message += ":";
+    stats_message += right_door_value;
+    stats_message += termination;
+
+    // stats_message = left_door_name + digitalRead(left_door_pin);
+    // stats_message += door_type + new_line;
+    // stats_message += right_door_name + digitalRead(right_door_pin);
+    // stats_message += door_type + new_line;
+    // stats_message += LDR_name;
+
+    // if (analogRead(LDR_pin) > 500) {
+    //     stats_message += 1;
+    // } else {
+    //     stats_message += 0;
+    // }
+
+    // stats_message += LDR_type;
+    Serial.print("Message to print is: ");
+    Serial.println(stats_message);
 
     Serial.println("Sending packet");
-    stats_message.toCharArray(stat_packet, 28);
+    stats_message.toCharArray(stat_packet, 51);
 
     UDP.beginPacket(stats_server_ip, stats_server_port);
     UDP.write(stat_packet);
