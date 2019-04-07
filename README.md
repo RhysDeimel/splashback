@@ -2,7 +2,9 @@ Lessons learned:
 
 ESP8266 wants 3.3v power to the CHPD (chip enabled) pin, otherwise it doesn't work
 
-These chips aren't set to a baud rate of 9600, so the UNO has problems. Set ESP hardware serial to 115200 and debug serial to 9600. You should be able to `AT` and receive and `OK`. From there you can set the ESP-01 baud to 9600 with `AT+CIOBAUD=9600`. At which point it will stop responding until you switch the hardware and debug serial around.
+These chips aren't set to a baud rate of 9600, so the UNO has problems. For a once off test, set ESP hardware serial to 115200 and debug serial to 9600. You should be able to `AT` and receive and `OK`. From there you can set the ESP-01 baud to 9600 with `AT+CIOBAUD=9600`. At which point it will stop responding until you switch the hardware and debug serial around.
+
+If you'd like to permanently set the baudrate, you should use `AT+UART_DEF=9600,8,1,0,0`, where the expanded form is: AT+ UART_DEF=<baudrate>,<databits>,<stopbits>,<parity>,<flow control>
 
 Send udp packet on nix with 
 `echo -n "Hello, World!" > /dev/udp/<address>/<port>`
